@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ma Boutique</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .btn {
+      @apply bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-4 py-2 rounded-lg font-semibold hover:from-purple-600 hover:to-indigo-700 transition;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-tr from-gray-100 via-gray-50 to-white text-gray-800">
+
+  <!-- En-tête -->
+  <header class="bg-indigo-900 text-white shadow-md p-6 flex justify-between items-center sticky top-0 z-50">
+    <h1 class="text-3xl font-bold">🛒 Ma Boutique</h1>
+    <nav class="flex gap-6 text-sm sm:text-base">
+      <a href="#" class="hover:underline">Accueil</a>
+      <a href="#" class="hover:underline">Produits</a>
+      <a href="#" id="cart-btn" class="relative hover:underline">
+        Panier
+        <span id="cart-count" class="absolute -top-2 -right-4 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- Produits -->
+  <main class="p-8 max-w-7xl mx-auto">
+    <h2 class="text-3xl font-semibold mb-8 text-center text-indigo-800">Découvrez Nos Produits</h2>
+    <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+
+      <!-- Produit 1 -->
+      <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition p-5 flex flex-col">
+        <img src="https://via.placeholder.com/300x200" class="rounded-lg h-48 object-cover mb-4" />
+        <h3 class="text-xl font-bold mb-1">Casque Audio</h3>
+        <p class="text-gray-500 text-sm mb-2">Son immersif et design moderne.</p>
+        <p class="text-indigo-600 font-bold text-lg">49.99 €</p>
+        <button class="btn mt-auto" onclick="addToCart('Casque Audio', 49.99)">Ajouter au panier</button>
+      </div>
+
+      <!-- Produit 2 -->
+      <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition p-5 flex flex-col">
+        <img src="https://via.placeholder.com/300x200" class="rounded-lg h-48 object-cover mb-4" />
+        <h3 class="text-xl font-bold mb-1">Montre Connectée</h3>
+        <p class="text-gray-500 text-sm mb-2">Notifications, santé et élégance.</p>
+        <p class="text-indigo-600 font-bold text-lg">89.90 €</p>
+        <button class="btn mt-auto" onclick="addToCart('Montre Connectée', 89.90)">Ajouter au panier</button>
+      </div>
+
+      <!-- Produit 3 -->
+      <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition p-5 flex flex-col">
+        <img src="https://via.placeholder.com/300x200" class="rounded-lg h-48 object-cover mb-4" />
+        <h3 class="text-xl font-bold mb-1">Lampe LED RGB</h3>
+        <p class="text-gray-500 text-sm mb-2">Ambiance colorée personnalisable.</p>
+        <p class="text-indigo-600 font-bold text-lg">24.50 €</p>
+        <button class="btn mt-auto" onclick="addToCart('Lampe LED RGB', 24.50)">Ajouter au panier</button>
+      </div>
+
+    </div>
+
+    <!-- Lecteur Spotify -->
+    <section class="mt-16 text-center">
+      <h2 class="text-xl font-semibold mb-4 text-indigo-700">🎵 Écoutez notre playlist</h2>
+      <div class="max-w-2xl mx-auto px-4">
+        <iframe style="border-radius:12px"
+          src="https://open.spotify.com/embed/artist/0LKAV3zJ8a8AIGnyc5OvfB?utm_source=generator&theme=0"
+          width="100%" height="352" frameBorder="0"
+          allowfullscreen=""
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy">
+        </iframe>
+      </div>
+    </section>
+  </main>
+
+  <!-- Pied de page -->
+  <footer class="bg-indigo-900 text-white text-center p-6 mt-16 text-sm">
+    &copy; 2025 Ma Boutique. Tous droits réservés.
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    let cart = [];
+
+    function addToCart(nom, prix) {
+      cart.push({ nom, prix });
+      document.getElementById('cart-count').innerText = cart.length;
+      alert(`✅ ${nom} ajouté au panier.`);
+    }
+
+    document.getElementById('cart-btn').addEventListener('click', function (e) {
+      e.preventDefault();
+      if (cart.length === 0) {
+        alert("Votre panier est vide.");
+        return;
+      }
+
+      let total = 0;
+      const items = cart.map(item => {
+        total += item.prix;
+        return `• ${item.nom} - ${item.prix.toFixed(2)} €`;
+      }).join('\n');
+
+      alert(`🛒 Panier :\n\n${items}\n\nTotal : ${total.toFixed(2)} €`);
+    });
+  </script>
+
+</body>
+</html>
